@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "devCommand": "node bare.js",
+  "devCommand": "node index.js",
   "builds": [{
-      "src": "bare.js",
+      "src": "index.js",
       "use": "@vercel/node"
   }],
   "routes": [{
-      "src": "/index.html",
-      "dest": "bare.js"
+      "src": "/(.*)",
+      "dest": "index.js"
   }]
 }
