@@ -1,0 +1,39 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const http = require('node:http');
+const { createBareServer } = require('@tomphttp/bare-server-node');
+
+const httpServer = http.createServer();
+const serve = new nodeStatic.Server('/');
+
+const bareServer = createBareServer('/bare/');
+
+httpServer.on('request', (req, res) => {
+	if (bareServer.shouldRoute(req)) {
+		bareServer.routeRequest(req, res);
+	} else {
+		res.writeHead(400);
+		res.end('Not found.');
+	}
+});
+
+httpServer.on('request', (request, response) => {
+    if (bareServer.route_request(request, response)) return true;
+    serve.serve(request, response);
+});
+
+
+httpServer.on('upgrade', (req, socket, head) => {
+	if (bareServer.shouldRoute(req)) {
+		bareServer.routeUpgrade(req, socket, head);
+	} else {
+		socket.end();
+	}
+});
+
+httpServer.on('listening', () => {
+	console.log('HTTP server listening');
+});
+
+httpServer.listen({
+	port: 8080,
+});
