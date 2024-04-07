@@ -6,7 +6,7 @@
       "use": "@vercel/node"
   }],
   "routes": [{
-      "src": "/bare/",
+      "src": "/games/",
       "dest": "bare.js"
   }]
 }
